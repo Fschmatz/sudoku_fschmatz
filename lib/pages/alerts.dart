@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../main.dart';
+import 'home_page.dart';
 
 class AlertGameOver extends StatelessWidget {
   static bool newGame = false;
@@ -81,7 +82,7 @@ class AlertDifficulty extends State<AlertDifficultyState> {
           child: Text(
         'Select Difficulty Level',
       )),
-      contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+      contentPadding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
       children: <Widget>[
         for (String level in difficulties)
           SimpleDialogOption(
@@ -97,7 +98,7 @@ class AlertDifficulty extends State<AlertDifficultyState> {
               level[0].toUpperCase() + level.substring(1),
               textAlign: TextAlign.center,
               style: const TextStyle(
-                fontSize: 15,
+                fontSize: 16,
               ),
             ),
           )

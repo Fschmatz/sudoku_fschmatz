@@ -11,6 +11,7 @@ class Changelog{
   static String changelogsOld = '''
 0.3.0
 - Themes   
+- Icon
 
 0.2.0
 - Logic   

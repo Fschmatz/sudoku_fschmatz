@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
-import '../main.dart';
+import 'home_page.dart';
 
 class SplashScreenPage extends StatefulWidget {
   SplashScreenPage({Key key}) : super(key: key);
@@ -18,11 +18,11 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   @override
   Widget build(BuildContext context) {
     return SplashScreen(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       seconds: 2,
-      navigateAfterSeconds: HomePage(),
+      navigateAfterSeconds: const HomePage(),
       title: const Text(
-        '\nSudoku',
+        '\nSudoku Fschmatz',
         style: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 25.0,

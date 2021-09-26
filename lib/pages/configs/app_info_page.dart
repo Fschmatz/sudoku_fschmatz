@@ -6,7 +6,12 @@ class AppInfoPage extends StatelessWidget {
   const AppInfoPage({Key key}) : super(key: key);
 
   _launchGithub()  {
-    const url = '';
+    const url = 'https://github.com/Fschmatz/sudoku_fschmatz';
+    launch(url);
+  }
+
+  _launchGithubThanks()  {
+    const url = 'https://github.com/VarunS2002/Flutter-Sudoku';
     launch(url);
   }
 
@@ -83,6 +88,25 @@ class AppInfoPage extends StatelessWidget {
             leading: const SizedBox(
               height: 0.1,
             ),
+            title: Text("Thanks To".toUpperCase(),
+                style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: themeColorApp)),
+          ),
+          ListTile(
+            onTap: () {_launchGithubThanks();},
+            leading: const Icon(Icons.open_in_new_outlined),
+            title: const Text("Flutter Sudoku GitHub",
+                style: TextStyle(
+                    decoration: TextDecoration.underline,
+                    color: Colors.blue)),
+          ),
+          const Divider(),
+          ListTile(
+            leading: const SizedBox(
+              height: 0.1,
+            ),
             title: Text("Quote".toUpperCase(),
                 style: TextStyle(
                     fontSize: 13,
@@ -92,7 +116,7 @@ class AppInfoPage extends StatelessWidget {
           const ListTile(
             leading: Icon(Icons.messenger_outline),
             title: Text(
-              "",
+              "What is mathematics? It is only a systematic effort of solving puzzles posed by nature",
               style: TextStyle(fontSize: 16),
             ),
           ),
