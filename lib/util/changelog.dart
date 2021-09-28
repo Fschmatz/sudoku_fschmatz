@@ -1,14 +1,17 @@
 class Changelog{
 
-  static String appVersion = "1.0.0";
+  static String appVersion = "1.1.0";
   static String appName = "Sudoku Fschmatz";
 
   static String changelogCurrent = '''
-1.0.0
-- Technically Usable
+1.1.0
+- Fixes Everywhere
 ''';
 
   static String changelogsOld = '''
+1.0.0
+- Technically Usable
+
 0.3.0
 - Themes   
 - Icon

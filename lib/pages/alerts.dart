@@ -17,17 +17,10 @@ class AlertGameOver extends StatelessWidget {
       title: const Text(
         'Game Over',
       ),
-      content:const Text(
+      content: const Text(
         'You successfully solved the Sudoku',
       ),
       actions: [
-        TextButton(
-          onPressed: () {
-            Navigator.pop(context);
-            restartGame = true;
-          },
-          child: const Text('Restart Game'),
-        ),
         TextButton(
           onPressed: () {
             Navigator.pop(context);
@@ -40,11 +33,11 @@ class AlertGameOver extends StatelessWidget {
   }
 }
 
-// ignore: must_be_immutable
 class AlertDifficultyState extends StatefulWidget {
   String currentDifficultyLevel;
 
-  AlertDifficultyState(String currentDifficultyLevel, {Key key}) : super(key: key) {
+  AlertDifficultyState(String currentDifficultyLevel, {Key key})
+      : super(key: key) {
     currentDifficultyLevel = currentDifficultyLevel;
   }
 
@@ -129,11 +122,7 @@ class AlertExit extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            if (HomePageState.isDesktop) {
-              exit(0);
-            } else if (HomePageState.platform == 'android') {
-              SystemNavigator.pop();
-            }
+            SystemNavigator.pop();
           },
           child: const Text('Yes'),
         ),
@@ -194,7 +183,10 @@ class AlertNumbers extends State<AlertNumbersState> {
               child: Text(
                 numbers.toString(),
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 20),
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Theme.of(context).accentColor,
+                ),
               ),
             ),
           ),

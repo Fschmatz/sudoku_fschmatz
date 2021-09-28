@@ -24,8 +24,8 @@ class HomePageState extends State<HomePage> {
   List<List<int>> gameCopy;
   List<List<int>> gameSolved;
   static String currentDifficultyLevel;
-  static String platform;
-  static bool isDesktop;
+  double buttonFontSize = 18;
+  double buttonSize = 42;
 
   @override
   void initState() {
@@ -36,23 +36,8 @@ class HomePageState extends State<HomePage> {
         currentDifficultyLevel = 'easy';
         setPrefs('currentDifficultyLevel');
       }
-
       newGame(currentDifficultyLevel);
     });
-    if (kIsWeb) {
-      platform = 'web-' +
-          defaultTargetPlatform
-              .toString()
-              .replaceFirst("TargetPlatform.", "")
-              .toLowerCase();
-      isDesktop = false;
-    } else {
-      platform = defaultTargetPlatform
-          .toString()
-          .replaceFirst("TargetPlatform.", "")
-          .toLowerCase();
-      isDesktop = ['windows', 'linux', 'macos'].contains(platform);
-    }
   }
 
   Future<void> getPrefs() async {
@@ -84,9 +69,6 @@ class HomePageState extends State<HomePage> {
             if (AlertGameOver.newGame) {
               newGame();
               AlertGameOver.newGame = false;
-            } else if (AlertGameOver.restartGame) {
-              restartGame();
-              AlertGameOver.restartGame = false;
             }
           });
         });
@@ -146,7 +128,7 @@ class HomePageState extends State<HomePage> {
     setState(() {
       game = SudokuUtilities.copySudoku(gameSolved);
       isButtonDisabled =
-      !isButtonDisabled ? !isButtonDisabled : isButtonDisabled;
+          !isButtonDisabled ? !isButtonDisabled : isButtonDisabled;
       gameOver = true;
     });
   }
@@ -155,16 +137,7 @@ class HomePageState extends State<HomePage> {
     setState(() {
       setGame(2, difficulty);
       isButtonDisabled =
-      isButtonDisabled ? !isButtonDisabled : isButtonDisabled;
-      gameOver = false;
-    });
-  }
-
-  void restartGame() {
-    setState(() {
-      game = SudokuUtilities.copySudoku(gameCopy);
-      isButtonDisabled =
-      isButtonDisabled ? !isButtonDisabled : isButtonDisabled;
+          isButtonDisabled ? !isButtonDisabled : isButtonDisabled;
       gameOver = false;
     });
   }
@@ -174,28 +147,9 @@ class HomePageState extends State<HomePage> {
     if (([0, 1, 2].contains(k) && [3, 4, 5].contains(i)) ||
         ([3, 4, 5].contains(k) && [0, 1, 2, 6, 7, 8].contains(i)) ||
         ([6, 7, 8].contains(k) && [3, 4, 5].contains(i))) {
-      color = Colors.grey[800];
+      color = Theme.of(context).accentTextTheme.headline2.color;
     }
-
     return color;
-  }
-
-  double buttonSize() {
-    double size = 50;
-    if (HomePageState.platform.contains('android') ||
-        HomePageState.platform.contains('ios')) {
-      size = 45;
-    }
-    return size;
-  }
-
-  double buttonFontSize() {
-    double size = 20;
-    if (HomePageState.platform.contains('android') ||
-        HomePageState.platform.contains('ios')) {
-      size = 18;
-    }
-    return size;
   }
 
   BorderRadiusGeometry buttonEdgeRadius(int k, int i) {
@@ -216,56 +170,58 @@ class HomePageState extends State<HomePage> {
       setGame(1);
       firstRun = false;
     }
-    MaterialColor emptyColor;
+
+    Color defaultNumbers =
+        Theme.of(context).textTheme.headline6.color.withOpacity(0.8);
+
+    Color addedNumbers = Theme.of(context).accentColor;
 
     List<SizedBox> buttonList = List<SizedBox>.filled(9, null);
     for (var i = 0; i <= 8; i++) {
       var k = timesCalled;
       buttonList[i] = SizedBox(
-        width: buttonSize(),
-        height: buttonSize(),
+        width: buttonSize,
+        height: buttonSize,
         child: TextButton(
           onPressed: isButtonDisabled || gameCopy[k][i] != 0
               ? null
               : () {
-            showAnimatedDialog<void>(
-                animationType: DialogTransitionType.fade,
-                barrierDismissible: true,
-                duration: const Duration(milliseconds: 300),
-                context: context,
-                builder: (_) => const AlertNumbersState())
-                .whenComplete(() {
-              callback([k, i], AlertNumbersState.number);
-              AlertNumbersState.number = null;
-            });
-          },
+                  showAnimatedDialog<void>(
+                          animationType: DialogTransitionType.fade,
+                          barrierDismissible: true,
+                          duration: const Duration(milliseconds: 300),
+                          context: context,
+                          builder: (_) => const AlertNumbersState())
+                      .whenComplete(() {
+                    callback([k, i], AlertNumbersState.number);
+                    AlertNumbersState.number = null;
+                  });
+                },
           onLongPress: isButtonDisabled || gameCopy[k][i] != 0
               ? null
               : () => callback([k, i], 0),
+
           style: ButtonStyle(
             backgroundColor:
-            MaterialStateProperty.all<Color>(buttonColor(k, i)),
-            foregroundColor: MaterialStateProperty.resolveWith<Color>(
-                    (Set<MaterialState> states) {
-                  if (states.contains(MaterialState.disabled)) {
-                    return emptyColor;
-                  }
-                  return buttonColor(k, i);
-                }),
+                MaterialStateProperty.all<Color>(buttonColor(k, i)),
+
             shape: MaterialStateProperty.all<OutlinedBorder>(
                 RoundedRectangleBorder(
-                  borderRadius: buttonEdgeRadius(k, i),
-                )),
+              borderRadius: buttonEdgeRadius(k, i),
+            )),
             side: MaterialStateProperty.all<BorderSide>(BorderSide(
               width: 1,
-              color: Colors.grey[850],
+              color: Colors.grey[800],
               style: BorderStyle.solid,
             )),
           ),
           child: Text(
             game[k][i] != 0 ? game[k][i].toString() : ' ',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: buttonFontSize()),
+            style: TextStyle(
+              fontSize: buttonFontSize,
+
+            ),
           ),
         ),
       );
@@ -322,23 +278,13 @@ class HomePageState extends State<HomePage> {
             children: [
               ListTile(
                 leading: const Icon(
-                  Icons.refresh,
-                ),
-                title: const Text('Restart Game', style: customStyle),
-                onTap: () {
-                  Navigator.pop(context);
-                  Timer(const Duration(milliseconds: 200), () => restartGame());
-                },
-              ),
-              ListTile(
-                leading: const Icon(
                   Icons.add_rounded,
                 ),
                 title: const Text('New Game', style: customStyle),
                 onTap: () {
                   Navigator.pop(context);
                   Timer(const Duration(milliseconds: 200),
-                          () => newGame(currentDifficultyLevel));
+                      () => newGame(currentDifficultyLevel));
                 },
               ),
               ListTile(
@@ -355,29 +301,30 @@ class HomePageState extends State<HomePage> {
               ListTile(
                 leading: const Icon(
                   Icons.build_outlined,
+                  size: 23,
                 ),
                 title: const Text('Set Difficulty', style: customStyle),
                 onTap: () {
                   Navigator.pop(context);
                   Timer(
                       const Duration(milliseconds: 300),
-                          () => showAnimatedDialog<void>(
-                          animationType: DialogTransitionType.fadeScale,
-                          barrierDismissible: true,
-                          duration: const Duration(milliseconds: 350),
-                          context: outerContext,
-                          builder: (_) => AlertDifficultyState(
-                              currentDifficultyLevel)).whenComplete(() {
-                        if (AlertDifficultyState.difficulty != null) {
-                          Timer(const Duration(milliseconds: 300), () {
-                            newGame(AlertDifficultyState.difficulty);
-                            currentDifficultyLevel =
-                                AlertDifficultyState.difficulty;
-                            AlertDifficultyState.difficulty = null;
-                            setPrefs('currentDifficultyLevel');
-                          });
-                        }
-                      }));
+                      () => showAnimatedDialog<void>(
+                              animationType: DialogTransitionType.fadeScale,
+                              barrierDismissible: true,
+                              duration: const Duration(milliseconds: 350),
+                              context: outerContext,
+                              builder: (_) => AlertDifficultyState(
+                                  currentDifficultyLevel)).whenComplete(() {
+                            if (AlertDifficultyState.difficulty != null) {
+                              Timer(const Duration(milliseconds: 300), () {
+                                newGame(AlertDifficultyState.difficulty);
+                                currentDifficultyLevel =
+                                    AlertDifficultyState.difficulty;
+                                AlertDifficultyState.difficulty = null;
+                                setPrefs('currentDifficultyLevel');
+                              });
+                            }
+                          }));
                 },
               ),
             ],
@@ -415,7 +362,7 @@ class HomePageState extends State<HomePage> {
                         context,
                         MaterialPageRoute<void>(
                           builder: (BuildContext context) =>
-                          const SettingsPage(),
+                              const SettingsPage(),
                           fullscreenDialog: true,
                         ));
                   }),
@@ -436,7 +383,11 @@ class HomePageState extends State<HomePage> {
                   icon: Icon(
                     Icons.menu_outlined,
                     size: 25,
-                    color: Theme.of(context).hintColor,
+                    color: Theme.of(context)
+                        .textTheme
+                        .headline6
+                        .color
+                        .withOpacity(0.8),
                   ),
                   onPressed: () {
                     showOptionModalSheet(context);

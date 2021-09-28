@@ -3,11 +3,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 ThemeData light = ThemeData(
     brightness: Brightness.light,
-    primaryColor: const Color(0xFFF0F0F0),
+    primaryColor: const Color(0xFFFFFFFF),
     accentColor: Colors.blueAccent,
-    scaffoldBackgroundColor: const Color(0xFFF0F0F0),
+    scaffoldBackgroundColor: const Color(0xFFFFFFFF),
     appBarTheme: const AppBarTheme(
-        color: Color(0xFFF0F0F0),
+        color: Color(0xFFFFFFFF),
         elevation: 0,
         iconTheme: IconThemeData(color: Color(0xFF000000)),
         titleTextStyle: TextStyle(
@@ -21,32 +21,17 @@ ThemeData light = ThemeData(
     dialogTheme: const DialogTheme(
       backgroundColor: Color(0xFFF0F0F0),
     ),
-    inputDecorationTheme: InputDecorationTheme(
-        contentPadding:
-            const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: Colors.blueAccent,
-          ),
-          borderRadius: BorderRadius.circular(15.0),
-        ),
-        enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.grey.withOpacity(0.3),
-            ),
-            borderRadius: BorderRadius.circular(15.0)),
-        border: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.grey.withOpacity(0.3),
-            ),
-            borderRadius: BorderRadius.circular(15.0))),
+
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: Colors.blueAccent, elevation: 1),
-    bottomAppBarColor: const Color(0xFFE5E5E5),
+    bottomAppBarColor: const Color(0xFFFFFFFF),
     accentTextTheme: const TextTheme(
       headline1: TextStyle(
         color: Colors.blueAccent,
       ),
+      headline2: TextStyle(
+        color: Color(0xFFE0E0E0),
+      )
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       selectedIconTheme: IconThemeData(color: Colors.deepPurple),
@@ -55,6 +40,7 @@ ThemeData light = ThemeData(
       showUnselectedLabels: false,
       backgroundColor: Color(0xFFE5E5E5),
     ),
+
     bottomSheetTheme:
         const BottomSheetThemeData(modalBackgroundColor: Color(0xFFFFFFFF)));
 
@@ -77,29 +63,15 @@ ThemeData dark = ThemeData(
     dialogTheme: const DialogTheme(
       backgroundColor: Color(0xFF202022),
     ),
-    inputDecorationTheme: InputDecorationTheme(
-        contentPadding:
-            const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.blueAccent[100],
-          ),
-          borderRadius: BorderRadius.circular(15.0),
-        ),
-        enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.grey.withOpacity(0.3),
-            ),
-            borderRadius: BorderRadius.circular(15.0)),
-        border: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.grey.withOpacity(0.3),
-            ),
-            borderRadius: BorderRadius.circular(15.0))),
+
     accentTextTheme: TextTheme(
       headline1: TextStyle(
         color: Colors.blueAccent[100],
+        backgroundColor: const Color(0xFFFFFFFF),
       ),
+        headline2: TextStyle(
+          color: Colors.grey[850],
+        )
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       selectedIconTheme: IconThemeData(color: Colors.blueAccent),
