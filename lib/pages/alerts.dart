@@ -79,6 +79,7 @@ class AlertDifficulty extends State<AlertDifficultyState> {
       children: <Widget>[
         for (String level in difficulties)
           SimpleDialogOption(
+            padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
             onPressed: () {
               if (level != currentDifficultyLevel) {
                 setState(() {
@@ -128,101 +129,5 @@ class AlertExit extends StatelessWidget {
         ),
       ],
     );
-  }
-}
-
-class AlertNumbersState extends StatefulWidget {
-  const AlertNumbersState({Key key}) : super(key: key);
-
-  @override
-  AlertNumbers createState() => AlertNumbers();
-
-  static get number {
-    return AlertNumbers.number;
-  }
-
-  static set number(int number) {
-    AlertNumbers.number = number;
-  }
-}
-
-class AlertNumbers extends State<AlertNumbersState> {
-  static int number;
-  int numberSelected;
-  static final List<int> numberList1 = [1, 2, 3];
-  static final List<int> numberList2 = [4, 5, 6];
-  static final List<int> numberList3 = [7, 8, 9];
-
-  List<SizedBox> createButtons(List<int> numberList) {
-    return <SizedBox>[
-      for (int numbers in numberList)
-        SizedBox(
-          width: 65,
-          height: 65,
-          child: Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: TextButton(
-              onPressed: () => {
-                setState(() {
-                  numberSelected = numbers;
-                  number = numberSelected;
-                  Navigator.pop(context);
-                })
-              },
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all<OutlinedBorder>(
-                    RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                )),
-                side: MaterialStateProperty.all<BorderSide>(BorderSide(
-                  width: 1,
-                  color: Colors.grey[800],
-                  style: BorderStyle.solid,
-                )),
-              ),
-              child: Text(
-                numbers.toString(),
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Theme.of(context).accentColor,
-                ),
-              ),
-            ),
-          ),
-        )
-    ];
-  }
-
-  Row oneRow(List<int> numberList) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: createButtons(numberList),
-    );
-  }
-
-  List<Row> createRows() {
-    List<List> numberLists = [numberList1, numberList2, numberList3];
-    List<Row> rowList = List<Row>.filled(3, null);
-    for (var i = 0; i <= 2; i++) {
-      rowList[i] = oneRow(numberLists[i]);
-    }
-    return rowList;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        title: const Center(
-            child: Text(
-          'Choose a Number',
-        )),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: createRows(),
-        ));
   }
 }

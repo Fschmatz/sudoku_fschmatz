@@ -26,13 +26,13 @@ class HomePageState extends State<HomePage> {
   List<List<int>> gameSolved;
   static String currentDifficultyLevel;
   double buttonFontSize = 18;
-  double buttonSize = 45;
+  double buttonSize = 42;
   List<int> listNumberButtons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 
   TextStyle styleSelectedButtonNumber =
       const TextStyle(fontSize: 20, fontWeight: FontWeight.w700);
   TextStyle styleUnselectedButtonNumber =
-      const TextStyle(fontSize: 16, fontWeight: FontWeight.w500);
+      const TextStyle(fontSize: 15, fontWeight: FontWeight.w500);
 
   int selectedNumber;
 
@@ -191,24 +191,10 @@ class HomePageState extends State<HomePage> {
               ? null
               : () {
                   if (selectedNumber != 0) {
-                    print(selectedNumber);
                     callback([k, i], selectedNumber);
-                    //selectedNumber = null;
-                  } else{
-                    /*isButtonDisabled || gameCopy[k][i] != 0
-                        ? null
-                        : () => */callback([k, i], 0);
+                  } else {
+                    callback([k, i], 0);
                   }
-                  /* showAnimatedDialog<void>(
-                          animationType: DialogTransitionType.fade,
-                          barrierDismissible: true,
-                          duration: const Duration(milliseconds: 300),
-                          context: context,
-                          builder: (_) => const AlertNumbersState())
-                      .whenComplete(() {
-                    callback([k, i], AlertNumbersState.number);
-                    AlertNumbersState.number = null;
-                  });*/
                 },
           onLongPress: isButtonDisabled || gameCopy[k][i] != 0
               ? null
@@ -221,7 +207,7 @@ class HomePageState extends State<HomePage> {
               borderRadius: buttonEdgeRadius(k, i),
             )),
             side: MaterialStateProperty.all<BorderSide>(const BorderSide(
-              width: 1,
+              width: 0.7,
               color: Color(0xFF3A3A3F),
               style: BorderStyle.solid,
             )),
@@ -369,10 +355,12 @@ class HomePageState extends State<HomePage> {
                     listNumberButtons[index].toString(),
                   ),
                   style: ElevatedButton.styleFrom(
-                    textStyle: selectedNumber == listNumberButtons[index] ? styleSelectedButtonNumber : styleUnselectedButtonNumber,
+                    textStyle: selectedNumber == listNumberButtons[index]
+                        ? styleSelectedButtonNumber
+                        : styleUnselectedButtonNumber,
                     elevation: 0,
                     primary: selectedNumber == listNumberButtons[index]
-                        ? Theme.of(context).accentColor.withOpacity(0.2)
+                        ? Theme.of(context).accentColor.withOpacity(0.3)
                         : Theme.of(context).cardTheme.color,
                     onPrimary: Theme.of(context).accentColor,
                     shape: RoundedRectangleBorder(
@@ -402,16 +390,18 @@ class HomePageState extends State<HomePage> {
                       selectedNumber = listNumberButtons[index + 5];
                     });
                   },
-                  child: listNumberButtons[index + 5] == 0 ?
-                  const Icon(Icons.highlight_remove_outlined)
-                  : Text(
-                    listNumberButtons[index + 5].toString(),
-                  ),
+                  child: listNumberButtons[index + 5] == 0
+                      ? const Icon(Icons.highlight_remove_outlined)
+                      : Text(
+                          listNumberButtons[index + 5].toString(),
+                        ),
                   style: ElevatedButton.styleFrom(
-                    textStyle: selectedNumber == listNumberButtons[index + 5] ? styleSelectedButtonNumber : styleUnselectedButtonNumber,
+                    textStyle: selectedNumber == listNumberButtons[index + 5]
+                        ? styleSelectedButtonNumber
+                        : styleUnselectedButtonNumber,
                     elevation: 0,
                     primary: selectedNumber == listNumberButtons[index + 5]
-                        ? Theme.of(context).accentColor.withOpacity(0.2)
+                        ? Theme.of(context).accentColor.withOpacity(0.3)
                         : Theme.of(context).cardTheme.color,
                     onPrimary: Theme.of(context).accentColor,
                     shape: RoundedRectangleBorder(
