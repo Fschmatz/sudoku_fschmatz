@@ -25,16 +25,17 @@ class HomePageState extends State<HomePage> {
   List<List<int>> gameCopy;
   List<List<int>> gameSolved;
   static String currentDifficultyLevel;
-  double buttonFontSize = 18;
-  double buttonSize = 42;
+  double buttonGridFontSize = 18;
+  double buttonGridSize = 43;
   List<int> listNumberButtons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+  int selectedNumber;
 
+  //NUMBER BUTTONS
   TextStyle styleSelectedButtonNumber =
-      const TextStyle(fontSize: 20, fontWeight: FontWeight.w700);
+      const TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
   TextStyle styleUnselectedButtonNumber =
       const TextStyle(fontSize: 15, fontWeight: FontWeight.w500);
 
-  int selectedNumber;
 
   @override
   void initState() {
@@ -47,6 +48,7 @@ class HomePageState extends State<HomePage> {
       }
       newGame(currentDifficultyLevel);
     });
+    
   }
 
   Future<void> getPrefs() async {
@@ -156,7 +158,7 @@ class HomePageState extends State<HomePage> {
     if (([0, 1, 2].contains(k) && [3, 4, 5].contains(i)) ||
         ([3, 4, 5].contains(k) && [0, 1, 2, 6, 7, 8].contains(i)) ||
         ([6, 7, 8].contains(k) && [3, 4, 5].contains(i))) {
-      color = Theme.of(context).cardTheme.color.withOpacity(0.9);
+      color = Theme.of(context).cardTheme.color; // fundo grid cor
     }
     return color;
   }
@@ -184,8 +186,8 @@ class HomePageState extends State<HomePage> {
     for (var i = 0; i <= 8; i++) {
       var k = timesCalled;
       buttonList[i] = SizedBox(
-        width: buttonSize,
-        height: buttonSize,
+        width: buttonGridSize,
+        height: buttonGridSize,
         child: TextButton(
           onPressed: isButtonDisabled || gameCopy[k][i] != 0
               ? null
@@ -208,7 +210,7 @@ class HomePageState extends State<HomePage> {
             )),
             side: MaterialStateProperty.all<BorderSide>(const BorderSide(
               width: 0.7,
-              color: Color(0xFF3A3A3F),
+              color: Color(0xFF404046),
               style: BorderStyle.solid,
             )),
           ),
@@ -216,7 +218,7 @@ class HomePageState extends State<HomePage> {
             game[k][i] != 0 ? game[k][i].toString() : ' ',
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: buttonFontSize,
+              fontSize: buttonGridFontSize,
             ),
           ),
         ),
@@ -330,7 +332,7 @@ class HomePageState extends State<HomePage> {
 
   Widget buttonsList() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 10, 16, 0),
+      padding: const EdgeInsets.fromLTRB(16, 15, 16, 0),
       child: Column(
         children: [
           GridView.builder(
@@ -370,7 +372,7 @@ class HomePageState extends State<HomePage> {
                 );
               }),
           const SizedBox(
-            height: 15,
+            height: 20,
           ),
           GridView.builder(
               physics: const ScrollPhysics(),
@@ -417,6 +419,7 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     return WillPopScope(
         onWillPop: () async {
           showAnimatedDialog<void>(

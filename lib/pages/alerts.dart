@@ -70,7 +70,7 @@ class AlertDifficulty extends State<AlertDifficultyState> {
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       title: const Center(
           child: Text(
         'Select Difficulty Level',
@@ -78,21 +78,28 @@ class AlertDifficulty extends State<AlertDifficultyState> {
       contentPadding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
       children: <Widget>[
         for (String level in difficulties)
-          SimpleDialogOption(
-            padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-            onPressed: () {
-              if (level != currentDifficultyLevel) {
-                setState(() {
-                  difficulty = level;
-                });
-              }
-              Navigator.pop(context);
-            },
-            child: Text(
-              level[0].toUpperCase() + level.substring(1),
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 16,
+          Card(
+            margin: const EdgeInsets.fromLTRB(10, 8, 10, 8),
+            elevation: 0,
+            shape: const  RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15)),
+            ),
+            child: SimpleDialogOption(
+              padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+              onPressed: () {
+                if (level != currentDifficultyLevel) {
+                  setState(() {
+                    difficulty = level;
+                  });
+                }
+                Navigator.pop(context);
+              },
+              child: Text(
+                level[0].toUpperCase() + level.substring(1),
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
               ),
             ),
           )
