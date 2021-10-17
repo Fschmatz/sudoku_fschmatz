@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,7 +26,15 @@ class HomePageState extends State<HomePage> {
   List<List<int>> gameSolved;
   static String currentDifficultyLevel;
   double buttonFontSize = 18;
-  double buttonSize = 42;
+  double buttonSize = 45;
+  List<int> listNumberButtons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+
+  TextStyle styleSelectedButtonNumber =
+      const TextStyle(fontSize: 20, fontWeight: FontWeight.w700);
+  TextStyle styleUnselectedButtonNumber =
+      const TextStyle(fontSize: 16, fontWeight: FontWeight.w500);
+
+  int selectedNumber;
 
   @override
   void initState() {
@@ -147,7 +156,7 @@ class HomePageState extends State<HomePage> {
     if (([0, 1, 2].contains(k) && [3, 4, 5].contains(i)) ||
         ([3, 4, 5].contains(k) && [0, 1, 2, 6, 7, 8].contains(i)) ||
         ([6, 7, 8].contains(k) && [3, 4, 5].contains(i))) {
-      color = Theme.of(context).accentTextTheme.headline2.color;
+      color = Theme.of(context).cardTheme.color.withOpacity(0.9);
     }
     return color;
   }
@@ -171,11 +180,6 @@ class HomePageState extends State<HomePage> {
       firstRun = false;
     }
 
-    Color defaultNumbers =
-        Theme.of(context).textTheme.headline6.color.withOpacity(0.8);
-
-    Color addedNumbers = Theme.of(context).accentColor;
-
     List<SizedBox> buttonList = List<SizedBox>.filled(9, null);
     for (var i = 0; i <= 8; i++) {
       var k = timesCalled;
@@ -186,7 +190,16 @@ class HomePageState extends State<HomePage> {
           onPressed: isButtonDisabled || gameCopy[k][i] != 0
               ? null
               : () {
-                  showAnimatedDialog<void>(
+                  if (selectedNumber != 0) {
+                    print(selectedNumber);
+                    callback([k, i], selectedNumber);
+                    //selectedNumber = null;
+                  } else{
+                    /*isButtonDisabled || gameCopy[k][i] != 0
+                        ? null
+                        : () => */callback([k, i], 0);
+                  }
+                  /* showAnimatedDialog<void>(
                           animationType: DialogTransitionType.fade,
                           barrierDismissible: true,
                           duration: const Duration(milliseconds: 300),
@@ -195,23 +208,21 @@ class HomePageState extends State<HomePage> {
                       .whenComplete(() {
                     callback([k, i], AlertNumbersState.number);
                     AlertNumbersState.number = null;
-                  });
+                  });*/
                 },
           onLongPress: isButtonDisabled || gameCopy[k][i] != 0
               ? null
               : () => callback([k, i], 0),
-
           style: ButtonStyle(
             backgroundColor:
                 MaterialStateProperty.all<Color>(buttonColor(k, i)),
-
             shape: MaterialStateProperty.all<OutlinedBorder>(
                 RoundedRectangleBorder(
               borderRadius: buttonEdgeRadius(k, i),
             )),
-            side: MaterialStateProperty.all<BorderSide>(BorderSide(
+            side: MaterialStateProperty.all<BorderSide>(const BorderSide(
               width: 1,
-              color: Colors.grey[800],
+              color: Color(0xFF3A3A3F),
               style: BorderStyle.solid,
             )),
           ),
@@ -220,7 +231,6 @@ class HomePageState extends State<HomePage> {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: buttonFontSize,
-
             ),
           ),
         ),
@@ -261,7 +271,7 @@ class HomePageState extends State<HomePage> {
     });
   }
 
-  showOptionModalSheet(BuildContext context) {
+  showOptionsBottomMenu(BuildContext context) {
     BuildContext outerContext = context;
     showModalBottomSheet(
         context: context,
@@ -332,6 +342,89 @@ class HomePageState extends State<HomePage> {
         });
   }
 
+  Widget buttonsList() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 10, 16, 0),
+      child: Column(
+        children: [
+          GridView.builder(
+              physics: const ScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: 5,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 5,
+                childAspectRatio: 1.5,
+                mainAxisSpacing: 12,
+                crossAxisSpacing: 15,
+              ),
+              itemBuilder: (BuildContext context, int index) {
+                return TextButton(
+                  key: UniqueKey(),
+                  onPressed: () {
+                    setState(() {
+                      selectedNumber = listNumberButtons[index];
+                    });
+                  },
+                  child: Text(
+                    listNumberButtons[index].toString(),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    textStyle: selectedNumber == listNumberButtons[index] ? styleSelectedButtonNumber : styleUnselectedButtonNumber,
+                    elevation: 0,
+                    primary: selectedNumber == listNumberButtons[index]
+                        ? Theme.of(context).accentColor.withOpacity(0.2)
+                        : Theme.of(context).cardTheme.color,
+                    onPrimary: Theme.of(context).accentColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                );
+              }),
+          const SizedBox(
+            height: 15,
+          ),
+          GridView.builder(
+              physics: const ScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: 5,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 5,
+                childAspectRatio: 1.5,
+                mainAxisSpacing: 12,
+                crossAxisSpacing: 15,
+              ),
+              itemBuilder: (BuildContext context, int index) {
+                return TextButton(
+                  key: UniqueKey(),
+                  onPressed: () {
+                    setState(() {
+                      selectedNumber = listNumberButtons[index + 5];
+                    });
+                  },
+                  child: listNumberButtons[index + 5] == 0 ?
+                  const Icon(Icons.highlight_remove_outlined)
+                  : Text(
+                    listNumberButtons[index + 5].toString(),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    textStyle: selectedNumber == listNumberButtons[index + 5] ? styleSelectedButtonNumber : styleUnselectedButtonNumber,
+                    elevation: 0,
+                    primary: selectedNumber == listNumberButtons[index + 5]
+                        ? Theme.of(context).accentColor.withOpacity(0.2)
+                        : Theme.of(context).cardTheme.color,
+                    onPrimary: Theme.of(context).accentColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                );
+              }),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -369,11 +462,17 @@ class HomePageState extends State<HomePage> {
             ],
           ),
           body: Builder(builder: (builder) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: createRows(),
-              ),
+            return ListView(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 100, 0, 30),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: createRows(),
+                  ),
+                ),
+                buttonsList()
+              ],
             );
           }),
           bottomNavigationBar: BottomAppBar(
@@ -390,7 +489,7 @@ class HomePageState extends State<HomePage> {
                         .withOpacity(0.8),
                   ),
                   onPressed: () {
-                    showOptionModalSheet(context);
+                    showOptionsBottomMenu(context);
                   })),
         ));
   }

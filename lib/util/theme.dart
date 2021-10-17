@@ -16,23 +16,21 @@ ThemeData light = ThemeData(
             color: Color(0xFF000000))),
     cardTheme: const CardTheme(
       elevation: 0,
-      color: Color(0xFFFFFFFF),
+      color: Color(0xFFE7E7E7),
     ),
     dialogTheme: const DialogTheme(
       backgroundColor: Color(0xFFF0F0F0),
     ),
-
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: Colors.blueAccent, elevation: 1),
     bottomAppBarColor: const Color(0xFFFFFFFF),
     accentTextTheme: const TextTheme(
-      headline1: TextStyle(
-        color: Colors.blueAccent,
-      ),
-      headline2: TextStyle(
-        color: Color(0xFFE0E0E0),
-      )
-    ),
+        headline1: TextStyle(
+          color: Colors.blueAccent,
+        ),
+        headline2: TextStyle(
+          color: Color(0xFFE0E0E0),
+        )),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       selectedIconTheme: IconThemeData(color: Colors.deepPurple),
       selectedLabelStyle: TextStyle(color: Colors.deepPurple),
@@ -40,17 +38,16 @@ ThemeData light = ThemeData(
       showUnselectedLabels: false,
       backgroundColor: Color(0xFFE5E5E5),
     ),
-
     bottomSheetTheme:
         const BottomSheetThemeData(modalBackgroundColor: Color(0xFFFFFFFF)));
 
 ThemeData dark = ThemeData(
     brightness: Brightness.dark,
-    primaryColor: const Color(0xFF202022),
+    primaryColor: const Color(0xFF1A1A1F),
     accentColor: Colors.blueAccent[100],
-    scaffoldBackgroundColor: const Color(0xFF202022),
+    scaffoldBackgroundColor: const Color(0xFF1A1A1F),
     appBarTheme: const AppBarTheme(
-        color: Color(0xFF202022),
+        color: Color(0xFF1A1A1F),
         elevation: 0,
         titleTextStyle: TextStyle(
             fontSize: 20,
@@ -58,21 +55,19 @@ ThemeData dark = ThemeData(
             color: Color(0xFFFFFFFF))),
     cardTheme: const CardTheme(
       elevation: 0,
-      color: Color(0xFF2D2D2F),
+      color: Color(0xFF2A2A2F),
     ),
     dialogTheme: const DialogTheme(
-      backgroundColor: Color(0xFF202022),
+      backgroundColor: Color(0xFF1A1A1F),
     ),
-
     accentTextTheme: TextTheme(
-      headline1: TextStyle(
-        color: Colors.blueAccent[100],
-        backgroundColor: const Color(0xFFFFFFFF),
-      ),
+        headline1: TextStyle(
+          color: Colors.blueAccent[100],
+          backgroundColor: const Color(0xFFFFFFFF),
+        ),
         headline2: TextStyle(
           color: Colors.grey[850],
-        )
-    ),
+        )),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       selectedIconTheme: IconThemeData(color: Colors.blueAccent),
       selectedLabelStyle: TextStyle(color: Colors.blueAccent),
@@ -82,9 +77,9 @@ ThemeData dark = ThemeData(
     ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: Colors.blueAccent[100], elevation: 1),
-    bottomAppBarColor: const Color(0xFF202022),
+    bottomAppBarColor: const Color(0xFF1A1A1F),
     bottomSheetTheme:
-        const BottomSheetThemeData(modalBackgroundColor: Color(0xFF202022)));
+        const BottomSheetThemeData(modalBackgroundColor: Color(0xFF1A1A1F)));
 
 class ThemeNotifier extends ChangeNotifier {
   final String key = 'valorTema';

@@ -5,6 +5,9 @@ class Changelog{
 
   static String changelogCurrent = '''
 1.1.0
+- Added Button Rows
+- Logic Changes
+- Theme Changes
 - Fixes Everywhere
 ''';
 
