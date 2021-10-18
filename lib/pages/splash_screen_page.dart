@@ -30,7 +30,6 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
       ),
       loadingText: const Text(
         'Loading',
-        //style: TextStyle(color: Colors.grey),
       ),
     );
   }

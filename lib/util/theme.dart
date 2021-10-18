@@ -43,11 +43,11 @@ ThemeData light = ThemeData(
 
 ThemeData dark = ThemeData(
     brightness: Brightness.dark,
-    primaryColor: const Color(0xFF1A1A1F),
+    primaryColor: const Color(0xFF1D1D1F),
     accentColor: Colors.blueAccent[100],
-    scaffoldBackgroundColor: const Color(0xFF1A1A1F),
+    scaffoldBackgroundColor: const Color(0xFF1D1D1F),
     appBarTheme: const AppBarTheme(
-        color: Color(0xFF1A1A1F),
+        color: Color(0xFF1D1D1F),
         elevation: 0,
         titleTextStyle: TextStyle(
             fontSize: 20,
@@ -55,10 +55,10 @@ ThemeData dark = ThemeData(
             color: Color(0xFFFFFFFF))),
     cardTheme: const CardTheme(
       elevation: 0,
-      color: Color(0xFF2A2A2F),
+      color: Color(0xFF2D2D2F),
     ),
     dialogTheme: const DialogTheme(
-      backgroundColor: Color(0xFF1A1A1F),
+      backgroundColor: Color(0xFF1D1D1F),
     ),
     accentTextTheme: TextTheme(
         headline1: TextStyle(
@@ -77,9 +77,9 @@ ThemeData dark = ThemeData(
     ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: Colors.blueAccent[100], elevation: 1),
-    bottomAppBarColor: const Color(0xFF1A1A1F),
+    bottomAppBarColor: const Color(0xFF1D1D1F),
     bottomSheetTheme:
-        const BottomSheetThemeData(modalBackgroundColor: Color(0xFF1A1A1F)));
+        const BottomSheetThemeData(modalBackgroundColor: Color(0xFF1D1D1F)));
 
 class ThemeNotifier extends ChangeNotifier {
   final String key = 'valorTema';

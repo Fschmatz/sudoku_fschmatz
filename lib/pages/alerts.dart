@@ -1,21 +1,18 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../main.dart';
-import 'home_page.dart';
 
 class AlertGameOver extends StatelessWidget {
   static bool newGame = false;
   static bool restartGame = false;
 
-  AlertGameOver({Key key}) : super(key: key);
+  const AlertGameOver({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       title: const Text(
-        'Game Over',
+        'Congratulations',
       ),
       content: const Text(
         'You successfully solved the Sudoku',
@@ -82,7 +79,7 @@ class AlertDifficulty extends State<AlertDifficultyState> {
             margin: const EdgeInsets.fromLTRB(10, 8, 10, 8),
             elevation: 0,
             shape: const  RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(15)),
+              borderRadius: BorderRadius.all(Radius.circular(10)),
             ),
             child: SimpleDialogOption(
               padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
@@ -114,7 +111,7 @@ class AlertExit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       title: const Text(
         'Exit Game',
       ),

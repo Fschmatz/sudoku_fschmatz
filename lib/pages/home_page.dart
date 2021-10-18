@@ -34,7 +34,7 @@ class HomePageState extends State<HomePage> {
   TextStyle styleSelectedButtonNumber =
       const TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
   TextStyle styleUnselectedButtonNumber =
-      const TextStyle(fontSize: 15, fontWeight: FontWeight.w500);
+      const TextStyle(fontSize: 18, fontWeight: FontWeight.w700);
 
 
   @override
@@ -165,13 +165,13 @@ class HomePageState extends State<HomePage> {
 
   BorderRadiusGeometry buttonEdgeRadius(int k, int i) {
     if (k == 0 && i == 0) {
-      return const BorderRadius.only(topLeft: Radius.circular(10));
+      return const BorderRadius.only(topLeft: Radius.circular(8));
     } else if (k == 0 && i == 8) {
-      return const BorderRadius.only(topRight: Radius.circular(10));
+      return const BorderRadius.only(topRight: Radius.circular(8));
     } else if (k == 8 && i == 0) {
-      return const BorderRadius.only(bottomLeft: Radius.circular(10));
+      return const BorderRadius.only(bottomLeft: Radius.circular(8));
     } else if (k == 8 && i == 8) {
-      return const BorderRadius.only(bottomRight: Radius.circular(10));
+      return const BorderRadius.only(bottomRight: Radius.circular(8));
     }
     return BorderRadius.circular(0);
   }
@@ -210,7 +210,7 @@ class HomePageState extends State<HomePage> {
             )),
             side: MaterialStateProperty.all<BorderSide>(const BorderSide(
               width: 0.7,
-              color: Color(0xFF404046),
+              color: Color(0xFF404042),
               style: BorderStyle.solid,
             )),
           ),
@@ -270,7 +270,7 @@ class HomePageState extends State<HomePage> {
         ),
         builder: (context) {
           const TextStyle customStyle = TextStyle(
-            inherit: false,
+            fontSize: 15
           );
           return Wrap(
             children: [
@@ -331,6 +331,7 @@ class HomePageState extends State<HomePage> {
   }
 
   Widget buttonsList() {
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 15, 16, 0),
       child: Column(
@@ -364,9 +365,11 @@ class HomePageState extends State<HomePage> {
                     primary: selectedNumber == listNumberButtons[index]
                         ? Theme.of(context).accentColor.withOpacity(0.3)
                         : Theme.of(context).cardTheme.color,
-                    onPrimary: Theme.of(context).accentColor,
+                    onPrimary: selectedNumber == listNumberButtons[index]
+                        ?  Theme.of(context).accentColor
+                        : Theme.of(context).textTheme.headline1.color,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                 );
@@ -405,9 +408,11 @@ class HomePageState extends State<HomePage> {
                     primary: selectedNumber == listNumberButtons[index + 5]
                         ? Theme.of(context).accentColor.withOpacity(0.3)
                         : Theme.of(context).cardTheme.color,
-                    onPrimary: Theme.of(context).accentColor,
+                    onPrimary: selectedNumber == listNumberButtons[index + 5]
+                        ?  Theme.of(context).accentColor
+                        : Theme.of(context).textTheme.headline1.color,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                 );
@@ -458,7 +463,7 @@ class HomePageState extends State<HomePage> {
             return ListView(
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 100, 0, 30),
+                  padding: const EdgeInsets.fromLTRB(0, 90, 0, 40),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: createRows(),
